@@ -33,88 +33,115 @@ const render = require("./lib/htmlRenderer");
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
-const genQuestions = [
+
+function managerQuestion() {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            message: "What is the manager's name?",
+            name: 'name',
+        },
+        {
+            type: 'input',
+            message: "What is the manager's ID?",
+            name: 'id',
+        },
+        {
+            type: 'input',
+            message: "What is the manager's email?",
+            name: 'email',
+        }, 
+        {
+            type: 'input',
+            message: "What is the manager's office number?",
+            name: 'officeNumber',
+        }, 
+    ]);
+    
+}
+
+function addQuestions() {
+    return inquirer.prompt([
+        {
+        type: 'list',
+        message: "Please select the role you would like to add.",
+        choices: ['Intern' , 'Engineer' , 'No Additional'],
+        name: 'role',
+        }
+    ]).then((answer) => {
+        if (answer.role === "Intern") {
+            return internQuestion()
+        } else if (answer.role === "Engineer") {
+            return engineerQuestion()
+        } else {
+            return console.log("All team members have been added.")
+        }
+    });
+
+}
+
+function internQuestion() {
+    return inquirer.prompt([
     {
         type: 'input',
-        message: 'What is your name?',
+        message: "What is the intern's name?",
         name: 'name',
     },
     {
         type: 'input',
-        message: 'What is your ID?',
+        message: "What is the intern's ID?",
         name: 'id',
     },
     {
         type: 'input',
-        message: 'What is your email?',
+        message: "What is the intern's email?",
         name: 'email',
-    },  
-    {
-        type: 'list',
-        message: 'Please select your role',
-        choices: ['Intern' , 'Engineer' , 'Manager'],
-        name: 'role',
-    }
-];
-
-const internQuestion = [
+    }, 
     {
         type: 'input',
-        message: 'Where do you go to school?',
+        message: 'Where does the intern go to school?',
         name: 'school',
     }, 
-];
+]
+
+)
+.then((answers) => {
+    addQuestions()}
+    );
+}
    
-const engineerQuestion = [
+function engineerQuestion() {
+    return inquirer.prompt([
     {
         type: 'input',
-        message: 'What is your GitHub?',
+        message: "What is the engineer's name?",
+        name: 'name',
+    },
+    {
+        type: 'input',
+        message: "What is the engineer's ID?",
+        name: 'id',
+    },
+    {
+        type: 'input',
+        message: "What is the engineer's email?",
+        name: 'email',
+    }, 
+    {
+        type: 'input',
+        message: "What is the engineer's GitHub?",
         name: 'github',
     }, 
-];
-
-const managerQuestion = [
-    {
-        type: 'input',
-        message: 'What is your office number?',
-        name: 'officeNumber',
-    }, 
-];
-
-function roleChoice() {
-if (this.role === 'Intern') {
-    inquirer
-        .prompt(internQuestion);
+])
+.then((answers) => {
+    addQuestions()}
+    );
 }
-if (this.role === 'Engineer') {
-    inquirer
-        .prompt(engineerQuestion);
-} 
-if (this.role === 'Manager') {
-    inquirer
-        .prompt(managerQuestion);
-};
-}
-
-// // function to write file
-// function writeToFile(fileName, data) {
-   
-// fs.writeFile(fileName , data , err => err ? console.error(err) : console.log("Success!"));
-    
-// }
 
 // function to initialize program
-function init() {
-inquirer
-    .prompt(genQuestions);
+managerQuestion()
 
-}
 
-        
-    
-    // .then((answers) => 
-    // writeToFile("./README_files/README.md", generateMarkdown(answers))
-    //  );
-
-// function call to initialize program
-init();
+.then((answers) => {
+    addQuestions()}
+    );
