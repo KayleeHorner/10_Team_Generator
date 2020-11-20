@@ -10,9 +10,6 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
-
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -22,16 +19,6 @@ const render = require("./lib/htmlRenderer");
 // `output` folder. You can use the variable `outputPath` above target this location.
 // Hint: you may need to check if the `output` folder exists and create it if it
 // does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
 
 
 function managerQuestion() {
@@ -56,8 +43,15 @@ function managerQuestion() {
             message: "What is the manager's office number?",
             name: 'officeNumber',
         }, 
-    ]);
-    
+    ])
+    .then((answers) => {
+        const manager = new Manager(
+            answers.name,
+            answers.id,
+            answers.email,
+            answers.officeNumber,
+        )}
+        )
 }
 
 function addQuestions() {
@@ -74,7 +68,8 @@ function addQuestions() {
         } else if (answer.role === "Engineer") {
             return engineerQuestion()
         } else {
-            return console.log("All team members have been added.")
+            return console.log("All team members have been added.");
+            renderHTML();
         }
     });
 
@@ -106,6 +101,13 @@ function internQuestion() {
 
 )
 .then((answers) => {
+    const newIntern = new Intern(
+        answers.name,
+        answers.email,
+        answers.github,
+    )}
+    )
+.then((answers) => {
     addQuestions()}
     );
 }
@@ -134,14 +136,28 @@ function engineerQuestion() {
     }, 
 ])
 .then((answers) => {
+    const newEngineer = new Engineer(
+        answers.name,
+        answers.email,
+        answers.github,
+    )}
+    ).then((answers) => {
     addQuestions()}
     );
 }
 
+function renderHTML() {
+    const answers = render([manager, newEngineer, newIntern]);
+    if (fs.existsSync(OUTPUT_DIR)) {
+        fs.writeFileSync(outputPath, answers)
+    } else {
+        fs.mkdirSync(OUTPUT_DIR);
+        fs.writeFileSync(outputPath, answers)
+    }
+}
+
 // function to initialize program
-managerQuestion()
+managerQuestion().then((answers) => {
+    addQuestions()
+})
 
-
-.then((answers) => {
-    addQuestions()}
-    );
