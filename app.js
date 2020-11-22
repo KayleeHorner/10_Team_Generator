@@ -133,6 +133,7 @@ function engineerQuestion() {
     ]).then((answers) => {
         const newEngineer = new Engineer(
             answers.name,
+            answers.id,
             answers.email,
             answers.github,
         )
