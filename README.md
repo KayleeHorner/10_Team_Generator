@@ -19,6 +19,7 @@ npm install
 
 ## Usage
 Begin program by running 'node app.js'. Answer questions accordingly, then check to make sure HTML was properly generated.
+Walkthrough Video: https://drive.google.com/file/d/1kT7Rcv1BdFvojIoJs6MOI8ay7vq2BN01/view
 
 ## License
 This project is licensed under the Unlicensed license.
