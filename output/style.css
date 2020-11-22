@@ -1,0 +1,50 @@
+.jumbotron {
+    background-color: #fadfdb;   
+}
+
+h1 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 64pt;
+    color: #F28482;
+}
+
+h2 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 30pt;
+    color: #F28482;
+    }
+
+h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20pt;
+    color: #84a59d;
+}
+
+.list-group-item {
+    font-family: 'Open Sans', sans-serif;
+    border-width: 0px;
+}
+
+.card {
+    margin: 5px;
+    border-width: 3px;
+    border-radius: 15px;
+    border-color: #f7ede2;
+}
+
+.card-header {
+    background-color: #f7ede2;
+    border-width: 0px;
+}
+
+body{
+    background-color: #fcf9f6;
+}
+
+.container {
+    background-color: #fcf9f6
+}
+
+i {
+    color: #84a59d;
+}
